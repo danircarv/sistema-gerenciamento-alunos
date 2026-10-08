@@ -12,7 +12,10 @@ instance Controller GradesController where
         render IndexView { .. }
 
     action NewGradeAction = do
-        let grade = newRecord
+        -- A tela da matrícula abre este formulário com ?enrollmentId=... já preenchido.
+        let grade = case paramOrNothing "enrollmentId" of
+                Just enrollmentId -> newRecord @Grade |> set #enrollmentId enrollmentId
+                Nothing -> newRecord @Grade
         render NewView { .. }
 
     action ShowGradeAction { gradeId } = do
@@ -32,25 +35,27 @@ instance Controller GradesController where
                 Right grade -> do
                     grade <- grade |> updateRecord
                     setSuccessMessage "Grade updated"
-                    redirectTo EditGradeAction { .. }
+                    redirectTo ShowEnrollmentAction { enrollmentId = grade.enrollmentId }
 
     action CreateGradeAction = do
         let grade = newRecord @Grade
         grade
             |> buildGrade
             |> ifValid \case
-                Left grade -> render NewView { .. } 
+                Left grade -> render NewView { .. }
                 Right grade -> do
                     grade <- grade |> createRecord
                     setSuccessMessage "Grade created"
-                    redirectTo GradesAction
+                    redirectTo ShowEnrollmentAction { enrollmentId = grade.enrollmentId }
 
     action DeleteGradeAction { gradeId } = do
         grade <- fetch gradeId
         deleteRecord grade
         setSuccessMessage "Grade deleted"
-        redirectTo GradesAction
+        redirectTo ShowEnrollmentAction { enrollmentId = grade.enrollmentId }
 
 buildGrade grade = grade
-    |> fill @'["enrollmentId", "description", "value"]
-    |> validateField #description nonEmpty
+    |> fill @'["enrollmentId", "description", "value", "weight"]
+    |> validateField #description (validarCom (validarNaoVazio "descrição"))
+    |> validateField #value (validarCom validarNota)
+    |> validateField #weight (validarCom validarPeso)

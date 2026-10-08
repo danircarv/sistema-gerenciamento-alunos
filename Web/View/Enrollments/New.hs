@@ -1,13 +1,13 @@
 module Web.View.Enrollments.New where
 import Web.View.Prelude
 
-data NewView = NewView { enrollment :: Enrollment }
+data NewView = NewView { enrollment :: Enrollment, students :: [Student], courses :: [Course] }
 
 instance View NewView where
     html NewView { .. } = [hsx|
         {breadcrumb}
         <h1>New Enrollment</h1>
-        {renderForm enrollment}
+        {renderForm enrollment students courses}
     |]
         where
             breadcrumb = renderBreadcrumb
@@ -15,13 +15,11 @@ instance View NewView where
                 , breadcrumbText "New Enrollment"
                 ]
 
-renderForm :: Enrollment -> Html
-renderForm enrollment = formFor enrollment [hsx|
-    {- studentId needs to be a selectField -}
-        {(textField #studentId)}
-    {- courseId needs to be a selectField -}
-        {(textField #courseId)}
-    {(textField #semester)}
+renderForm :: Enrollment -> [Student] -> [Course] -> Html
+renderForm enrollment students courses = formFor enrollment [hsx|
+    {(selectField #studentId students) { fieldLabel = "Student" }}
+    {(selectField #courseId courses) { fieldLabel = "Course" }}
+    {(textField #semester) { placeholder = "2026.2" }}
     {submitButton}
 
 |]

@@ -111,8 +111,10 @@ mediaProvasETrabalho = calculadoraComPesos [3, 3, 4]
 
 -- * Formatação
 
+-- | Arredondamento escolar: o 5 sobe (6,625 vira 6,63). O 'round' do Haskell
+-- arredonda o 5 para o par mais próximo e daria 6,62.
 arredondar :: Int -> Double -> Double
-arredondar casas valor = fromIntegral (round (valor * fator) :: Integer) / fator
+arredondar casas valor = fromIntegral (floor (valor * fator + 0.5) :: Integer) / fator
   where
     fator = 10 ^ casas
 

@@ -27,7 +27,7 @@ instance Controller CoursesController where
         course <- fetch courseId
         course
             |> buildCourse
-            |> withCustomErrorMessageIO "Este código já está cadastrado" validateIsUnique #code
+            |> validarUnico #code "Este código já está cadastrado"
             >>= ifValid \case
                 Left course -> render EditView { .. }
                 Right course -> do
@@ -39,9 +39,9 @@ instance Controller CoursesController where
         let course = newRecord @Course
         course
             |> buildCourse
-            |> withCustomErrorMessageIO "Este código já está cadastrado" validateIsUnique #code
+            |> validarUnico #code "Este código já está cadastrado"
             >>= ifValid \case
-                Left course -> render NewView { .. } 
+                Left course -> render NewView { .. }
                 Right course -> do
                     course <- course |> createRecord
                     setSuccessMessage "Course created"

@@ -11,6 +11,7 @@ instance View ShowView where
             <dt>Enrollment Id</dt><dd>{grade.enrollmentId}</dd>
             <dt>Description</dt><dd>{grade.description}</dd>
             <dt>Value</dt><dd>{grade.value}</dd>
+            <dt>Weight</dt><dd>{grade.weight}</dd>
         </dl>
 
     |]

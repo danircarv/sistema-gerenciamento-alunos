@@ -20,6 +20,17 @@ defaultLayout inner = [hsx|
         <title>{pageTitleOrDefault "App"}</title>
     </head>
     <body>
+        <nav class="navbar navbar-expand bg-body-tertiary border-bottom">
+            <div class="container">
+                <a class="navbar-brand" href={StudentsAction}>Gestão de Alunos</a>
+                <div class="navbar-nav">
+                    <a class="nav-link" href={StudentsAction}>Students</a>
+                    <a class="nav-link" href={CoursesAction}>Courses</a>
+                    <a class="nav-link" href={EnrollmentsAction}>Enrollments</a>
+                    <a class="nav-link" href={GradesAction}>Grades</a>
+                </div>
+            </div>
+        </nav>
         <div class="container mt-4">
             {renderFlashMessages}
             {inner}

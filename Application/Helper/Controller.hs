@@ -1,5 +1,6 @@
 module Application.Helper.Controller
     ( validarCom
+    , validarUnico
     , module Application.Domain.Types
     , module Application.Domain.Validacao
     , module Application.Domain.Media
@@ -20,3 +21,10 @@ validarCom :: (valor -> Either ErroValidacao resultado) -> valor -> ValidatorRes
 validarCom validar valor = case validar valor of
     Right _ -> Success
     Left erro -> Failure (mensagemErro erro)
+
+-- | Checa no banco se o valor já existe, mas só quando o campo passou nas outras
+-- validações. 'withCustomErrorMessageIO' troca qualquer erro do campo pela mensagem
+-- dada, então sem esta guarda um e-mail mal formatado apareceria como "já cadastrado".
+validarUnico campo mensagem record = case getValidationFailure campo record of
+    Just _ -> pure record
+    Nothing -> withCustomErrorMessageIO mensagem validateIsUnique campo record

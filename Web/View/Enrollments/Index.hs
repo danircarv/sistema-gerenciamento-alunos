@@ -1,7 +1,15 @@
 module Web.View.Enrollments.Index where
 import Web.View.Prelude
 
-data IndexView = IndexView { enrollments :: [Enrollment] }
+data IndexView = IndexView { linhas :: [LinhaMatricula] }
+
+-- | Uma matrícula já unida ao aluno, ao curso e à média das notas.
+data LinhaMatricula = LinhaMatricula
+    { enrollment :: Enrollment
+    , student :: Student
+    , course :: Course
+    , media :: Maybe Double
+    }
 
 instance View IndexView where
     html IndexView { .. } = [hsx|
@@ -12,17 +20,19 @@ instance View IndexView where
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Student Id</th>
-                        <th>Course Id</th>
+                        <th>Student</th>
+                        <th>Course</th>
                         <th>Semester</th>
+                        <th>Média</th>
+                        <th>Situação</th>
                         <th></th>
                         <th></th>
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>{forEach enrollments renderEnrollment}</tbody>
+                <tbody>{forEach linhas renderEnrollment}</tbody>
             </table>
-            
+
         </div>
     |]
         where
@@ -30,12 +40,14 @@ instance View IndexView where
                 [ breadcrumbLink "Enrollments" EnrollmentsAction
                 ]
 
-renderEnrollment :: Enrollment -> Html
-renderEnrollment enrollment = [hsx|
+renderEnrollment :: LinhaMatricula -> Html
+renderEnrollment LinhaMatricula { .. } = [hsx|
     <tr>
-        <td>{enrollment.studentId}</td>
-        <td>{enrollment.courseId}</td>
+        <td>{student.name}</td>
+        <td>{course.code} · {course.name}</td>
         <td>{enrollment.semester}</td>
+        <td>{formatarMedia media}</td>
+        <td>{renderSituacao (classificar media)}</td>
         <td><a href={ShowEnrollmentAction enrollment.id}>Show</a></td>
         <td><a href={EditEnrollmentAction enrollment.id} class="text-muted">Edit</a></td>
         <td><a href={DeleteEnrollmentAction enrollment.id} class="js-delete text-muted">Delete</a></td>

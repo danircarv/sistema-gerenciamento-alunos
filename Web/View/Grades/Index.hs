@@ -15,6 +15,7 @@ instance View IndexView where
                         <th>Enrollment Id</th>
                         <th>Description</th>
                         <th>Value</th>
+                        <th>Weight</th>
                         <th></th>
                         <th></th>
                         <th></th>
@@ -36,6 +37,7 @@ renderGrade grade = [hsx|
         <td>{grade.enrollmentId}</td>
         <td>{grade.description}</td>
         <td>{grade.value}</td>
+        <td>{grade.weight}</td>
         <td><a href={ShowGradeAction grade.id}>Show</a></td>
         <td><a href={EditGradeAction grade.id} class="text-muted">Edit</a></td>
         <td><a href={DeleteGradeAction grade.id} class="js-delete text-muted">Delete</a></td>

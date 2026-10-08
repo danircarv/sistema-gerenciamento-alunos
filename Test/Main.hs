@@ -4,10 +4,10 @@ import Test.Hspec
 import IHP.Prelude
 
 -- Import your test specs here:
--- import Test.MySpec
+import qualified Test.Domain.MediaSpec
+import qualified Test.Domain.ValidacaoSpec
 
 main :: IO ()
 main = hspec do
-    describe "Example" do
-        it "should pass" do
-            1 + 1 `shouldBe` (2 :: Int)
+    Test.Domain.MediaSpec.tests
+    Test.Domain.ValidacaoSpec.tests
