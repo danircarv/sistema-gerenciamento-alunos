@@ -1,6 +1,3 @@
--- | Validações puras: recebem um valor e devolvem 'Right' com o valor aceito
--- ou 'Left' com o motivo da recusa. Os controllers usam estas mesmas funções
--- através de 'Application.Helper.Controller.validarCom'.
 module Application.Domain.Validacao
     ( notaMinima
     , notaMaxima
@@ -35,8 +32,6 @@ validarPeso valor
     | valor > 0 && valor <= pesoMaximo = Right valor
     | otherwise = Left (PesoInvalido valor)
 
--- | O nome do campo vem primeiro para permitir aplicação parcial:
--- @validarNaoVazio "nome"@ já é um validador pronto para o campo nome.
 validarNaoVazio :: Text -> Text -> Either ErroValidacao Text
 validarNaoVazio campo valor
     | Text.null limpo = Left (CampoVazio campo)
@@ -44,7 +39,6 @@ validarNaoVazio campo valor
   where
     limpo = Text.strip valor
 
--- | Aceita exatamente um @\@@, com usuário não vazio e domínio contendo um ponto interno.
 validarEmail :: Text -> Either ErroValidacao Text
 validarEmail valor = case Text.splitOn "@" limpo of
     [usuario, dominio]
@@ -57,7 +51,6 @@ validarEmail valor = case Text.splitOn "@" limpo of
   where
     limpo = Text.strip valor
 
--- | Registro acadêmico com 7 dígitos, por exemplo @2026001@.
 validarRa :: Text -> Either ErroValidacao Text
 validarRa valor
     | Text.length limpo == 7 && Text.all isDigit limpo = Right limpo
@@ -65,7 +58,6 @@ validarRa valor
   where
     limpo = Text.strip valor
 
--- | Semestre no formato @AAAA.S@, com S igual a 1 ou 2, por exemplo @2026.2@.
 validarSemestre :: Text -> Either ErroValidacao Text
 validarSemestre valor = case Text.splitOn "." limpo of
     [ano, periodo]
@@ -77,7 +69,6 @@ validarSemestre valor = case Text.splitOn "." limpo of
   where
     limpo = Text.strip valor
 
--- | Valida todos os campos de uma avaliação, parando no primeiro erro.
 validarAvaliacao :: Avaliacao -> Either ErroValidacao Avaliacao
 validarAvaliacao Avaliacao { descricao, nota, peso } = do
     descricaoValida <- validarNaoVazio "descrição" descricao
@@ -85,7 +76,6 @@ validarAvaliacao Avaliacao { descricao, nota, peso } = do
     pesoValido <- validarPeso peso
     pure Avaliacao { descricao = descricaoValida, nota = notaValida, peso = pesoValido }
 
--- | Mensagem exibida no formulário para cada tipo de erro.
 mensagemErro :: ErroValidacao -> Text
 mensagemErro = \case
     CampoVazio campo -> "O campo " <> campo <> " é obrigatório"

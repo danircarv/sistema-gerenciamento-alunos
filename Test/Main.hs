@@ -3,7 +3,6 @@ module Main where
 import Test.Hspec
 import IHP.Prelude
 
--- Import your test specs here:
 import qualified Test.Domain.MediaSpec
 import qualified Test.Domain.ValidacaoSpec
 

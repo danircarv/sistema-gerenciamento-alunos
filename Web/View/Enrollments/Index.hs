@@ -3,7 +3,6 @@ import Web.View.Prelude
 
 data IndexView = IndexView { linhas :: [LinhaMatricula] }
 
--- | Uma matrícula já unida ao aluno, ao curso e à média das notas.
 data LinhaMatricula = LinhaMatricula
     { enrollment :: Enrollment
     , student :: Student

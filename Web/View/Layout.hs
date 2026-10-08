@@ -39,10 +39,6 @@ defaultLayout inner = [hsx|
 </html>
 |]
 
--- The 'assetPath' function used below appends a `?v=SOME_VERSION` to the static assets in production
--- This is useful to avoid users having old CSS and JS files in their browser cache once a new version is deployed
--- See https://ihp.digitallyinduced.com/Guide/assets.html for more details
-
 stylesheets :: Html
 stylesheets = [hsx|
         <link rel="stylesheet" href={assetPath "/vendor/bootstrap-5.3.8/bootstrap.min.css"}/>

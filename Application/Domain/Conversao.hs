@@ -1,5 +1,3 @@
--- | Converte os records gerados pelo IHP (Student, Course, Enrollment, Grade)
--- nos tipos puros de "Application.Domain.Types".
 module Application.Domain.Conversao
     ( alunoDeStudent
     , cursoDeCourse
@@ -33,7 +31,6 @@ avaliacaoDeGrade grade = Avaliacao
     , peso = grade.weight
     }
 
--- | Notas que pertencem a uma matrícula, a partir de uma lista de notas do banco.
 avaliacoesDaMatricula :: [Grade] -> Id Enrollment -> [Avaliacao]
 avaliacoesDaMatricula grades enrollmentId =
     [avaliacaoDeGrade grade | grade <- grades, grade.enrollmentId == enrollmentId]

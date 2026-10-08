@@ -12,9 +12,6 @@ import Application.Domain.Types
 import Application.Domain.Media
 import Application.Domain.Conversao
 
--- Here you can add functions which are available in all your views
-
--- | Classe do badge do Bootstrap para cada situação.
 classeSituacao :: Situacao -> Text
 classeSituacao Aprovado = "bg-success"
 classeSituacao Recuperacao = "bg-warning text-dark"
@@ -24,7 +21,6 @@ classeSituacao SemNotas = "bg-secondary"
 renderSituacao :: Situacao -> Html
 renderSituacao situacao = [hsx|<span class={"badge " <> classeSituacao situacao}>{descreverSituacao situacao}</span>|]
 
--- Rótulos dos selects de aluno e de curso nos formulários de matrícula.
 instance CanSelect Student where
     type SelectValue Student = Id Student
     selectValue student = student.id

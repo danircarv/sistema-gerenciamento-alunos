@@ -3,8 +3,6 @@ import IHP.RouterPrelude
 import Generated.Types
 import Web.Types
 
--- The welcome page at '/' is served by the static controller below.
--- Additional [routes|...|] blocks get appended by `new-controller`.
 [routes|StaticController
 GET /    WelcomeAction
 |]
@@ -19,7 +17,6 @@ POST /UpdateStudent?studentId UpdateStudentAction
 DELETE /DeleteStudent?studentId DeleteStudentAction
 |]
 
-
 [routes|CoursesController
 GET /Courses CoursesAction
 GET /NewCourse NewCourseAction
@@ -30,7 +27,6 @@ POST /UpdateCourse?courseId UpdateCourseAction
 DELETE /DeleteCourse?courseId DeleteCourseAction
 |]
 
-
 [routes|EnrollmentsController
 GET /Enrollments EnrollmentsAction
 GET /NewEnrollment NewEnrollmentAction
@@ -40,7 +36,6 @@ GET /EditEnrollment?enrollmentId EditEnrollmentAction
 POST /UpdateEnrollment?enrollmentId UpdateEnrollmentAction
 DELETE /DeleteEnrollment?enrollmentId DeleteEnrollmentAction
 |]
-
 
 [routes|GradesController
 GET /Grades GradesAction

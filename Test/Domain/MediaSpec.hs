@@ -5,7 +5,6 @@ import IHP.Prelude
 import Application.Domain.Types
 import Application.Domain.Media
 
--- | Compara números de ponto flutuante com tolerância.
 aproximadamente :: Double -> Maybe Double -> Bool
 aproximadamente esperado (Just valor) = abs (valor - esperado) < 1e-9
 aproximadamente _ Nothing = False

@@ -63,7 +63,6 @@ instance View ShowView where
                             , breadcrumbText "Show Enrollment"
                             ]
 
--- | Mostra a conta da média ponderada com os valores reais da matrícula.
 renderCalculo :: [Avaliacao] -> Html
 renderCalculo avaliacoes = case termosDaMedia avaliacoes of
     Nothing -> [hsx|<p class="mt-2 mb-0">Lance a primeira nota para calcular a média.</p>|]

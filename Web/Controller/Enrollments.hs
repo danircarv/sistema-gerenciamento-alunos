@@ -12,7 +12,6 @@ instance Controller EnrollmentsController where
         students <- query @Student |> fetch
         courses <- query @Course |> fetch
         grades <- query @Grade |> fetch
-        -- Junta cada matrícula ao seu aluno, ao seu curso e à média das suas notas.
         let linhas =
                 [ LinhaMatricula
                     { enrollment
@@ -85,15 +84,12 @@ buildEnrollment enrollment = enrollment
     |> fill @'["studentId", "courseId", "semester"]
     |> validateField #semester (validarCom validarSemestre)
 
--- | Alunos e cursos para os selects do formulário.
 opcoesDoFormulario :: (?modelContext :: ModelContext) => IO ([Student], [Course])
 opcoesDoFormulario = do
     students <- query @Student |> orderBy #name |> fetch
     courses <- query @Course |> orderBy #name |> fetch
     pure (students, courses)
 
--- | O banco tem UNIQUE(student_id, course_id, semester); esta checagem mostra a
--- mensagem no formulário em vez de deixar o INSERT falhar com erro 500.
 validarMatriculaUnica :: (?modelContext :: ModelContext) => Enrollment -> IO Enrollment
 validarMatriculaUnica enrollment
     | isJust (getValidationFailure #semester enrollment) = pure enrollment

@@ -13,10 +13,6 @@ import Application.Domain.Validacao
 import Application.Domain.Media
 import Application.Domain.Conversao
 
--- Here you can add functions which are available in all your controllers
-
--- | Adapta uma validação pura do domínio para um validador de campo do IHP,
--- por exemplo @validateField #value (validarCom validarNota)@.
 validarCom :: (valor -> Either ErroValidacao resultado) -> valor -> ValidatorResult
 validarCom validar valor = case validar valor of
     Right _ -> Success

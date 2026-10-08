@@ -12,7 +12,6 @@ instance Controller GradesController where
         render IndexView { .. }
 
     action NewGradeAction = do
-        -- A tela da matrícula abre este formulário com ?enrollmentId=... já preenchido.
         let grade = case paramOrNothing "enrollmentId" of
                 Just enrollmentId -> newRecord @Grade |> set #enrollmentId enrollmentId
                 Nothing -> newRecord @Grade

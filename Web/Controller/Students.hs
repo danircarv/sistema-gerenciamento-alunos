@@ -59,8 +59,6 @@ buildStudent student = student
     |> validateField #email (validarCom validarEmail)
     |> validateField #registrationNumber (validarCom validarRa)
 
--- E-mail e matrícula são UNIQUE no banco: sem esta checagem, um valor repetido
--- derrubava a página com erro 500 em vez de mostrar a mensagem no formulário.
 validateStudentIsUnique student = student
     |> validarUnico #email "Este e-mail já está cadastrado"
     >>= validarUnico #registrationNumber "Esta matrícula já está cadastrada"

@@ -5,9 +5,6 @@ import IHP.Prelude
 import IHP.ModelSupport
 import System.Environment (lookupEnv)
 
--- Integration tests run with a temporary PostgreSQL database.
--- The DATABASE_URL env var is set automatically by `nix flake check`.
--- See: https://ihp.digitallyinduced.com/Guide/testing.html
 main :: IO ()
 main = do
     databaseUrl <- lookupEnv "DATABASE_URL" >>= \case
