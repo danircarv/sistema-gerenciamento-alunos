@@ -71,6 +71,9 @@
 
                 # Custom configuration that will start with `devenv up`
                 devenv.shells.default = {
+                    # Telemetria do IHP desativada: o servidor de telemetria retorna 500 e derruba o RunDevServer
+                    env.IHP_TELEMETRY_DISABLED = "1";
+
                     # Start Mailhog on local development to catch outgoing emails
                     # services.mailhog.enable = true;
 
