@@ -10,9 +10,9 @@ instance View ShowView where
         <p class="text-muted">{student.email} · Registration {student.registrationNumber}</p>
 
         <div class="row g-3 mb-4">
-            {indicador "Média geral" (formatarMedia (mediaGeral matriculas)) "map + filter + foldl'"}
-            {indicador "Matrículas" (tshow (length matriculas)) "filter (ra == ...)"}
-            {indicador "Aprovação" (formatarPercentual (taxaDeAprovacao matriculas)) "filter + foldr"}
+            {indicador "Média geral" (formatarMedia (mediaGeral matriculas))}
+            {indicador "Matrículas" (tshow (length matriculas))}
+            {indicador "Aprovação" (formatarPercentual (taxaDeAprovacao matriculas))}
         </div>
 
         <h2 class="h5">Boletim</h2>

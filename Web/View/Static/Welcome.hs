@@ -13,12 +13,12 @@ instance View WelcomeView where
         <p class="text-muted">Indicadores calculados a partir de todas as matrículas e notas.</p>
 
         <div class="row g-3 mb-4">
-            {indicador "Alunos" (tshow totalAlunos) "fetchCount"}
-            {indicador "Matrículas" (tshow (length matriculas)) "concatMap montar enrollments"}
-            {indicador "Notas lançadas" (tshow (length (todasAsAvaliacoes matriculas))) "concatMap avaliacoes"}
-            {indicador "Média geral" (formatarMedia (mediaGeral matriculas)) "map + filter + foldl'"}
-            {indicador "Aprovação" (formatarPercentual (taxaDeAprovacao matriculas)) "filter + foldr"}
-            {indicador "Melhor desempenho" (melhor (melhorDesempenho matriculas)) "foldr"}
+            {indicador "Alunos" (tshow totalAlunos)}
+            {indicador "Matrículas" (tshow (length matriculas))}
+            {indicador "Notas lançadas" (tshow (length (todasAsAvaliacoes matriculas)))}
+            {indicador "Média geral" (formatarMedia (mediaGeral matriculas))}
+            {indicador "Aprovação" (formatarPercentual (taxaDeAprovacao matriculas))}
+            {indicador "Melhor desempenho" (melhor (melhorDesempenho matriculas))}
         </div>
 
         <div class="row g-4">
@@ -30,7 +30,6 @@ instance View WelcomeView where
                     </thead>
                     <tbody>{forEach (resumoPorCurso cursos matriculas) renderResumo}</tbody>
                 </table>
-                <code class="small">map (resumoDoCurso matriculas) cursos</code>
             </div>
             <div class="col-lg-5">
                 <h2 class="h5">Por situação</h2>

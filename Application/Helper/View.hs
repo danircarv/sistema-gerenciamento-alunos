@@ -26,13 +26,12 @@ classeSituacao SemNotas = "bg-secondary"
 renderSituacao :: Situacao -> Html
 renderSituacao situacao = [hsx|<span class={"badge " <> classeSituacao situacao}>{descreverSituacao situacao}</span>|]
 
-indicador :: Text -> Text -> Text -> Html
-indicador rotulo valor funcao = [hsx|
+indicador :: Text -> Text -> Html
+indicador rotulo valor = [hsx|
     <div class="col-md-4">
         <div class="card h-100"><div class="card-body">
             <div class="text-muted small">{rotulo}</div>
             <div class="fs-4">{valor}</div>
-            <code class="small">{funcao}</code>
         </div></div>
     </div>
 |]

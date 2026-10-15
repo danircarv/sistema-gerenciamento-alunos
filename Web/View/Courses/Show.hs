@@ -9,12 +9,12 @@ instance View ShowView where
         <h1>{course.code} · {course.name}</h1>
 
         <div class="row g-3 mb-4">
-            {indicador "Matriculados" (tshow resumo.matriculados) "length . filter"}
-            {indicador "Média da turma" (formatarMedia resumo.mediaDaTurma) "map + filter + foldl'"}
-            {indicador "Aprovados" (tshow resumo.aprovadosNaTurma) "filter"}
-            {indicador "Maior média" (formatarMedia medias.maior) "foldl' (max)"}
-            {indicador "Menor média" (formatarMedia medias.menor) "foldl' (min)"}
-            {indicador "Notas lançadas" (tshow (length (todasAsAvaliacoes matriculas))) "concatMap avaliacoes"}
+            {indicador "Matriculados" (tshow resumo.matriculados)}
+            {indicador "Média da turma" (formatarMedia resumo.mediaDaTurma)}
+            {indicador "Aprovados" (tshow resumo.aprovadosNaTurma)}
+            {indicador "Maior média" (formatarMedia medias.maior)}
+            {indicador "Menor média" (formatarMedia medias.menor)}
+            {indicador "Notas lançadas" (tshow (length (todasAsAvaliacoes matriculas)))}
         </div>
 
         <h2 class="h5">Alunos da turma</h2>
