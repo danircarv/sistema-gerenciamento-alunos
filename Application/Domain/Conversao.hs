@@ -4,6 +4,7 @@ module Application.Domain.Conversao
     , avaliacaoDeGrade
     , avaliacoesDaMatricula
     , matriculaDe
+    , montarMatriculas
     ) where
 
 import IHP.Prelude
@@ -42,3 +43,12 @@ matriculaDe student course enrollment grades = Matricula
     , semestre = enrollment.semester
     , avaliacoes = avaliacoesDaMatricula grades enrollment.id
     }
+
+montarMatriculas :: [Student] -> [Course] -> [Enrollment] -> [Grade] -> [Matricula]
+montarMatriculas students courses enrollments grades = concatMap montar enrollments
+  where
+    montar enrollment =
+        [ matriculaDe student course enrollment grades
+        | student <- filter (\student -> student.id == enrollment.studentId) students
+        , course <- filter (\course -> course.id == enrollment.courseId) courses
+        ]

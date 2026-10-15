@@ -7,8 +7,15 @@ import Web.View.Courses.Edit
 import Web.View.Courses.Show
 
 instance Controller CoursesController where
+    beforeAction = exigirAcesso Cursos case ?theAction of
+        CoursesAction -> Ler
+        ShowCourseAction {} -> Ler
+        _ -> Escrever
+
     action CoursesAction = do
-        courses <- query @Course |> fetch
+        courses <- query @Course |> orderBy #name |> fetch
+        matriculas <- carregarMatriculas
+        let linhas = zip courses (resumoPorCurso (map cursoDeCourse courses) matriculas)
         render IndexView { .. }
 
     action NewCourseAction = do
@@ -17,6 +24,8 @@ instance Controller CoursesController where
 
     action ShowCourseAction { courseId } = do
         course <- fetch courseId
+        matriculas <- matriculasDoCurso course.code <$> carregarMatriculas
+        let resumo = resumoDoCurso matriculas (cursoDeCourse course)
         render ShowView { .. }
 
     action EditCourseAction { courseId } = do

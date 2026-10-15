@@ -3,4 +3,10 @@ import Web.Controller.Prelude
 import Web.View.Static.Welcome
 
 instance Controller StaticController where
-    action WelcomeAction = render WelcomeView
+    beforeAction = ensureIsUser
+
+    action WelcomeAction = do
+        matriculas <- carregarMatriculas
+        totalAlunos <- query @Student |> fetchCount
+        cursos <- map cursoDeCourse <$> (query @Course |> orderBy #name |> fetch)
+        render WelcomeView { .. }

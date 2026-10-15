@@ -7,6 +7,12 @@ import Web.Types
 GET /    WelcomeAction
 |]
 
+[routes|SessionsController
+GET /NewSession NewSessionAction
+POST /CreateSession CreateSessionAction
+DELETE /DeleteSession DeleteSessionAction
+|]
+
 [routes|StudentsController
 GET /Students StudentsAction
 GET /NewStudent NewStudentAction

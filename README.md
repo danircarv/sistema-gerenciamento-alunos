@@ -2,6 +2,15 @@
 
 This is an IHP (Integrated Haskell Platform) project with a GitHub Actions workflow for continuous integration. For more information about IHP, see the [IHP Documentation](https://ihp.digitallyinduced.com/Guide/).
 
+## Usuários de teste (ambiente de desenvolvimento)
+
+Criados por `Application/Fixtures.sql`. São só para desenvolvimento local; não use em produção.
+
+| Papel | E-mail | Senha | Pode |
+|---|---|---|---|
+| Administrador | `admin@escola.com` | `admin123` | Tudo |
+| Professor | `professor@escola.com` | `professor123` | Consultar tudo e lançar/editar notas |
+
 ## GitHub Actions Workflow
 
 This project includes a GitHub Actions workflow that builds the project and runs its test suite via `nix flake check`. The workflow is defined in [`.github/workflows/nix-flake-check.yml`](.github/workflows/nix-flake-check.yml).

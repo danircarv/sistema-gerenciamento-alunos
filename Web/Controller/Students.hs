@@ -7,6 +7,11 @@ import Web.View.Students.Edit
 import Web.View.Students.Show
 
 instance Controller StudentsController where
+    beforeAction = exigirAcesso Alunos case ?theAction of
+        StudentsAction -> Ler
+        ShowStudentAction {} -> Ler
+        _ -> Escrever
+
     action StudentsAction = do
         students <- query @Student |> fetch
         render IndexView { .. }
@@ -17,6 +22,7 @@ instance Controller StudentsController where
 
     action ShowStudentAction { studentId } = do
         student <- fetch studentId
+        matriculas <- matriculasDoAluno student.registrationNumber <$> carregarMatriculas
         render ShowView { .. }
 
     action EditStudentAction { studentId } = do

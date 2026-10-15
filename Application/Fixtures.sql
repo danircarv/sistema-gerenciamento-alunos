@@ -1,0 +1,2 @@
+INSERT INTO public.users (id, name, email, password_hash, role) VALUES ('6e1c3a0e-6b8a-4c7e-9a51-3f0d2a6b1c01', 'Administrador', 'admin@escola.com', 'sha256|17|iLoCECZD+o7THNnEseLFig==|8dqnWU91nqNRYhfuh2bSicsw1tpP32RUw1XAFEywz44=', 'admin');
+INSERT INTO public.users (id, name, email, password_hash, role) VALUES ('6e1c3a0e-6b8a-4c7e-9a51-3f0d2a6b1c02', 'Professora Maria', 'professor@escola.com', 'sha256|17|Xo4DnjF4D8RD/Lhy/bBmYg==|0VnzoYktz/8mazyVoMejvbZjIr9QpbtC5ohb0+73C2U=', 'professor');

@@ -1,7 +1,7 @@
 module Web.View.Courses.Index where
 import Web.View.Prelude
 
-data IndexView = IndexView { courses :: [Course] }
+data IndexView = IndexView { linhas :: [(Course, ResumoCurso)] }
 
 instance View IndexView where
     html IndexView { .. } = [hsx|
@@ -14,14 +14,16 @@ instance View IndexView where
                     <tr>
                         <th>Name</th>
                         <th>Code</th>
+                        <th>Matriculados</th>
+                        <th>Média da turma</th>
                         <th></th>
                         <th></th>
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>{forEach courses renderCourse}</tbody>
+                <tbody>{forEach linhas renderCourse}</tbody>
             </table>
-            
+
         </div>
     |]
         where
@@ -29,11 +31,13 @@ instance View IndexView where
                 [ breadcrumbLink "Courses" CoursesAction
                 ]
 
-renderCourse :: Course -> Html
-renderCourse course = [hsx|
+renderCourse :: (Course, ResumoCurso) -> Html
+renderCourse (course, resumo) = [hsx|
     <tr>
         <td>{course.name}</td>
         <td>{course.code}</td>
+        <td>{tshow resumo.matriculados}</td>
+        <td>{formatarMedia resumo.mediaDaTurma}</td>
         <td><a href={ShowCourseAction course.id}>Show</a></td>
         <td><a href={EditCourseAction course.id} class="text-muted">Edit</a></td>
         <td><a href={DeleteCourseAction course.id} class="js-delete text-muted">Delete</a></td>

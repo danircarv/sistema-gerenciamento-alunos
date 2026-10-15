@@ -7,6 +7,11 @@ import Web.View.Enrollments.Edit
 import Web.View.Enrollments.Show
 
 instance Controller EnrollmentsController where
+    beforeAction = exigirAcesso Matriculas case ?theAction of
+        EnrollmentsAction -> Ler
+        ShowEnrollmentAction {} -> Ler
+        _ -> Escrever
+
     action EnrollmentsAction = do
         enrollments <- query @Enrollment |> orderByDesc #createdAt |> fetch
         students <- query @Student |> fetch

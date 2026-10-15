@@ -7,6 +7,11 @@ import Web.View.Grades.Edit
 import Web.View.Grades.Show
 
 instance Controller GradesController where
+    beforeAction = exigirAcesso Notas case ?theAction of
+        GradesAction -> Ler
+        ShowGradeAction {} -> Ler
+        _ -> Escrever
+
     action GradesAction = do
         grades <- query @Grade |> fetch
         render IndexView { .. }

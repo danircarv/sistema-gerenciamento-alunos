@@ -10,10 +10,12 @@ import Web.Controller.Enrollments
 import Web.Controller.Courses
 import Web.Controller.Students
 import Web.Controller.Static
+import Web.Controller.Sessions
 
 instance FrontController WebApplication where
     controllers = 
         [ startPage WelcomeAction
+        , parseRoute @SessionsController
         -- Generator Marker
         , parseRoute @GradesController
         , parseRoute @EnrollmentsController

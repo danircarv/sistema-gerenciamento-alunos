@@ -22,13 +22,8 @@ defaultLayout inner = [hsx|
     <body>
         <nav class="navbar navbar-expand bg-body-tertiary border-bottom">
             <div class="container">
-                <a class="navbar-brand" href={StudentsAction}>Gestão de Alunos</a>
-                <div class="navbar-nav">
-                    <a class="nav-link" href={StudentsAction}>Students</a>
-                    <a class="nav-link" href={CoursesAction}>Courses</a>
-                    <a class="nav-link" href={EnrollmentsAction}>Enrollments</a>
-                    <a class="nav-link" href={GradesAction}>Grades</a>
-                </div>
+                <a class="navbar-brand" href={WelcomeAction}>Gestão de Alunos</a>
+                {renderMenu currentUserOrNothing}
             </div>
         </nav>
         <div class="container mt-4">
@@ -37,6 +32,22 @@ defaultLayout inner = [hsx|
         </div>
     </body>
 </html>
+|]
+
+renderMenu :: Maybe User -> Html
+renderMenu Nothing = mempty
+renderMenu (Just user) = [hsx|
+    <div class="navbar-nav me-auto">
+        <a class="nav-link" href={WelcomeAction}>Painel</a>
+        <a class="nav-link" href={StudentsAction}>Students</a>
+        <a class="nav-link" href={CoursesAction}>Courses</a>
+        <a class="nav-link" href={EnrollmentsAction}>Enrollments</a>
+        <a class="nav-link" href={GradesAction}>Grades</a>
+    </div>
+    <div class="navbar-nav align-items-center">
+        <span class="navbar-text me-3">{user.name} · <span class="badge bg-secondary">{descreverPapel user.role_}</span></span>
+        <a class="nav-link js-delete js-delete-no-confirm" href={DeleteSessionAction}>Sair</a>
+    </div>
 |]
 
 stylesheets :: Html
